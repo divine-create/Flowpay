@@ -56,7 +56,7 @@ const Navbar = ({ darkMode, setDarkMode }: { darkMode: boolean, setDarkMode: (v:
             onClick={() => setDarkMode(!darkMode)}
             className="p-2 rounded-full hover:bg-white/10 transition-colors"
           >
-            {darkMode ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5 text-indigo-900" />}
+            {darkMode ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5 text-indigo-950" />}
           </button>
           <a href="#signup" className="hidden sm:block px-5 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-indigo-950 font-bold rounded-full transition-all text-sm shadow-lg shadow-cyan-500/20">
             Sign In
@@ -90,6 +90,42 @@ const Navbar = ({ darkMode, setDarkMode }: { darkMode: boolean, setDarkMode: (v:
 };
 
 const Hero = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 1, 0.5, 1],
+      },
+    },
+  };
+
+  const ctaVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 1, 0.5, 1],
+        delay: 0.8,
+      },
+    },
+  };
+
   return (
     <section className="relative pt-32 pb-20 overflow-hidden">
       <div className="absolute -top-24 -right-24 w-96 h-96 bg-cyan-500/10 blur-[100px] rounded-full"></div>
@@ -98,28 +134,37 @@ const Hero = () => {
       <div className="max-w-7xl mx-auto px-4 relative">
         <div className="text-center max-w-4xl mx-auto mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
           >
-            <span className="inline-block py-1 px-4 mb-6 rounded-full border border-cyan-500/30 bg-cyan-500/5 text-cyan-400 text-xs font-bold uppercase tracking-widest">
+            <motion.span 
+              variants={itemVariants}
+              className="inline-block py-1 px-4 mb-6 rounded-full border border-cyan-500/30 bg-cyan-500/5 text-cyan-400 text-xs font-bold uppercase tracking-widest"
+            >
               Available in 120+ Countries
-            </span>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-[1.1] tracking-tight text-slate-900 dark:text-white">
+            </motion.span>
+            <motion.h1 
+              variants={itemVariants}
+              className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-[1.1] tracking-tight text-slate-900 dark:text-white"
+            >
               The Future of Global <br />
               <span className="bg-gradient-to-r from-cyan-400 via-accent to-blue-500 bg-clip-text text-transparent">
                 Payments is Flow.
               </span>
-            </h1>
-            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+            </motion.h1>
+            <motion.p 
+              variants={itemVariants}
+              className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed"
+            >
               Instant settlements, near-zero fees, and bank-grade security. Scale your business globally with a single integration that supports 100+ payment methods.
-            </p>
+            </motion.p>
           </motion.div>
 
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            variants={ctaVariants}
+            initial="hidden"
+            animate="visible"
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <a href="#signup" className="w-full sm:w-auto px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-indigo-950 font-extrabold rounded-2xl transition-all text-lg shadow-xl shadow-cyan-500/25 flex items-center justify-center gap-2 group">
@@ -133,7 +178,7 @@ const Hero = () => {
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.5 }}
+            transition={{ duration: 1, delay: 1.2 }}
             className="mt-12 flex flex-wrap justify-center items-center gap-6 opacity-60 grayscale hover:grayscale-0 transition-all duration-500"
           >
             <p className="w-full text-sm font-medium mb-2 uppercase tracking-widest text-slate-500">Trusted by modern companies</p>
@@ -149,9 +194,9 @@ const Hero = () => {
 
         {/* Mockup Dashboard */}
         <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.4 }}
+          initial={{ opacity: 0, scale: 0.95, y: 40 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 1, delay: 1.0, ease: [0.25, 1, 0.5, 1] }}
           className="relative max-w-5xl mx-auto rounded-3xl p-1 bg-gradient-to-br from-cyan-400/20 via-accent/20 to-transparent shadow-2xl"
         >
           <div className="glass-dark rounded-[22px] overflow-hidden border border-white/10">
